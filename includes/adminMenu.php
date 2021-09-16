@@ -32,7 +32,7 @@ class SHB_admin_menu {
         <div class="simple-handbook-admin">
             <h1><?php echo esc_html__(get_admin_page_title(  )); ?></h1>
             <?php 
-                echo do_shortcode( '[shb_shortcode title="hello shortcode"]' );
+                echo do_shortcode( '[shb_shortcode title="hello shortcode" id="10"]' );
             ?>
 
             <form action="options.php" method="POST">
@@ -77,7 +77,11 @@ class SHB_admin_menu {
         $simple_text = get_option( 'simple_text_output' );
         ?>
         
-        <input type="text" name="simple_text_output" placeholder="<?php esc_attr_e('Add Text here', 'simple-handbook'); ?>" value="<?php echo $simple_text; ?>">
+        <input 
+            type="text" 
+            name="simple_text_output" 
+            placeholder="<?php esc_attr_e('Add Text here', 'simple-handbook'); ?>" 
+            value="<?php echo isset($simple_text) ? esc_attr($simple_text) : ''; ?>">
         <?php
     }
 

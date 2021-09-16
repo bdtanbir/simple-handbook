@@ -17,15 +17,21 @@ class Shortcodes {
         // override default attributes with user attributes
         $shb_atts = shortcode_atts( 
             array(
-                'title' => 'SimpleHandbook.io',
+                'title' => 'Shortcode Output',
+                'id'    => ''
             ), $atts, $tag 
         );
 
         // start box
-        $o = '<div class="shb-box">';
+        $o = '<div class="shb-shortcode-box">';
 
         // title
         $o .= '<h2>' . esc_html__($shb_atts['title'], 'simple-handbook') .'</h2>';
+        if(empty($shb_atts['id'])) {
+            $o .= esc_html__('Empty ID', 'simple-handbook');
+        } else {
+            $o .= esc_html__('ID=> '.$shb_atts['id'], 'simple-handbook');
+        }
 
         // enclosing tags
         if (!is_null($content)) {
