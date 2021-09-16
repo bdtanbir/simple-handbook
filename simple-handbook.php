@@ -86,6 +86,10 @@ if (!class_exists('SimpleHandbook')) {
                 // Shortcodes
                 require_once SHB_PATH . '/includes/shortcodes.php';
                 $this->container['shortcodes'] = new Simple_Handbook\Shortcodes;
+
+                // Metaboxes
+                require_once SHB_PATH . '/includes/custom-metaboxes.php';
+                $this->container['shortcodes'] = new Simple_Handbook\CustomMetaboxes;
             }
         }
 
