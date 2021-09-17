@@ -94,6 +94,10 @@ if (!class_exists('SimpleHandbook')) {
                 // Custom Taxonomy
                 require_once SHB_PATH . '/includes/custom-taxonomy.php';
                 $this->container['custom_taxonomy'] = new Simple_Handbook\Custom_Taxonomy;
+
+                // Customize Usermeta
+                require_once SHB_PATH . '/includes/customize-usermeta.php';
+                $this->container['customize_usermeta'] = new Simple_Handbook\Customize_usermeta;
             }
         }
 

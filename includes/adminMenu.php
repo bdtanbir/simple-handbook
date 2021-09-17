@@ -20,6 +20,15 @@ class SHB_admin_menu {
             80
          );
 
+         add_submenu_page( 
+             'simple_handbook',
+             __('Update UserMeta', 'simple-handbook'),
+             __('Update UserMeta', 'simple-handbook'),
+             'manage_options',
+             'shb-update-usermeta',
+             [$this, 'shb_update_usermeta_callback']
+        );
+
     }
 
     public function shb_options_page_html() {
@@ -44,6 +53,18 @@ class SHB_admin_menu {
             </form>
         </div>
         
+        <?php
+    }
+
+
+    public function shb_update_usermeta_callback() {
+        ?>
+            <div class="shb-usermeta-field">
+                <h1><?php esc_html_e('Usermeta', 'simple-handbook'); ?></h1>
+                <p>
+                    Date of birth: <strong><?php echo get_user_meta( '1', 'birthday', true ); ?></strong>
+                </p>
+            </div>
         <?php
     }
 
