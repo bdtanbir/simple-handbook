@@ -89,7 +89,11 @@ if (!class_exists('SimpleHandbook')) {
 
                 // Metaboxes
                 require_once SHB_PATH . '/includes/custom-metaboxes.php';
-                $this->container['shortcodes'] = new Simple_Handbook\CustomMetaboxes;
+                $this->container['custom_metaboxes'] = new Simple_Handbook\CustomMetaboxes;
+
+                // Custom Taxonomy
+                require_once SHB_PATH . '/includes/custom-taxonomy.php';
+                $this->container['custom_taxonomy'] = new Simple_Handbook\Custom_Taxonomy;
             }
         }
 

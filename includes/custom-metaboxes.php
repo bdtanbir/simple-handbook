@@ -28,25 +28,6 @@ class CustomMetaboxes {
      * @param int $post_id The ID of the post being saved.
      */
     public function shb_save_meta_box($post_id) {
-        // Check if our nonce is set.
-        if ( ! isset( $_POST['shb_inner_custom_box_nonce'] ) ) {
-            return $post_id;
-        }
-
-        $nonce = $_POST['shb_inner_custom_box_nonce'];
-
-        // Varify that the nonce is valid.
-        if ( !wp_verify_nonce( $nonce, 'shb_inner_custom_box' )) {
-            return $post_id;
-        }
-
-        $nonce = $_POST['shb_inner_custom_box_nonce'];
- 
-        // Verify that the nonce is valid.
-        if ( ! wp_verify_nonce( $nonce, 'shb_inner_custom_box' ) ) {
-            return $post_id;
-        }
- 
         /*
          * If this is an autosave, our form has not been submitted,
          * so we don't want to do anything.
@@ -55,16 +36,6 @@ class CustomMetaboxes {
             return $post_id;
         }
  
-        // Check the user's permissions.
-        if ( 'page' == $_POST['post_type'] ) {
-            if ( ! current_user_can( 'edit_page', $post_id ) ) {
-                return $post_id;
-            }
-        } else {
-            if ( ! current_user_can( 'edit_post', $post_id ) ) {
-                return $post_id;
-            }
-        }
  
         /* OK, it's safe for us to save the data now. */
  
@@ -83,17 +54,15 @@ class CustomMetaboxes {
      * @param WP_Post $post The post object.
      */
     public function shb_render_meta_box_content( $post ) {
-        // Add an nonce field so we can check for it later.
-        wp_nonce_field( 'shb_inner_custom_box', 'shb_inner_custom_box_nonce' );
 
-        $value = get_post_meta( $post->ID, 'shb_book_badge', true );
+        $badge = get_post_meta( $post->ID, 'shb_book_badge', true );
 
         // Display the form, using the current value.
         ?>
         <label for="shb_book_badge">
             <?php esc_html_e('Badge for Book', 'simple-handbook'); ?>
         </label>
-        <input type="text" class="widefat" id="shb_book_badge" name="shb_book_badge" value="<?php echo esc_attr($value); ?>">
+        <input type="text" class="widefat" id="shb_book_badge" name="shb_book_badge" value="<?php echo esc_attr($badge); ?>">
         <?php
 
     }
