@@ -102,6 +102,10 @@ if (!class_exists('SimpleHandbook')) {
                 // Customize Usermeta
                 require_once SHB_PATH . '/includes/customize-usermeta.php';
                 $this->container['customize_usermeta'] = new Simple_Handbook\Customize_usermeta;
+
+                // Ajax
+                require_once SHB_PATH . '/includes/shb-ajax.php';
+                $this->container['shb_ajax'] = new Simple_Handbook\Shb_ajax;
             }
         }
 

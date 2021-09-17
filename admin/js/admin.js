@@ -12,6 +12,12 @@
         //         $(that).after(data);
         //     })
         // })
+
+        $('.shb-radio-input').on('heartbeat-send', function(event, data) {
+            // Add additional data to Heartbeat data.
+            data.shb_customfield = 'some_data';
+            alert(data);
+        });
     })
 
 })(jQuery);

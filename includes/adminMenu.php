@@ -7,8 +7,6 @@ class SHB_admin_menu {
     {
         add_action( 'admin_menu', [$this, 'shb_admin_menu_page'] );
         add_action( 'admin_init', [$this, 'shb_register_setting_panel'] );
-        // add_action( 'wp_ajax_shb_tag_count', [$this, 'shb_first_ajax'] );
-        // add_action( 'wp_ajax_nopriv_shb_tag_count', [$this, 'shb_first_ajax'] );
     }
 
     public function shb_admin_menu_page() {
@@ -105,12 +103,31 @@ class SHB_admin_menu {
                     </table>
                 </form>
 
-
-                <ul>
-                    <?php foreach($results as $item) { ?>
-                        <li><?php echo esc_html($item->post_title); ?></li>
-                    <?php } ?>
-                </ul>
+                <table class="shb-handbook-table">
+                    <thead>
+                        <tr>
+                            <th><?php esc_html_e('ID', 'simple-handbook'); ?></th>
+                            <th><?php esc_html_e('Title', 'simple-handbook'); ?></th>
+                            <th><?php esc_html_e('Content', 'simple-handbook'); ?></th>
+                            <th><?php esc_html_e('Status', 'simple-handbook'); ?></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach($results as $item) { ?>
+                            <tr>
+                                <td><?php echo esc_html($item->ID); ?></td>
+                                <td><?php echo esc_html($item->post_title); ?></td>
+                                <td>
+                                    <?php 
+                                    $content = wp_trim_words( $item->post_content, 3, '...' );
+                                    echo esc_html($content); 
+                                    ?>
+                                </td>
+                                <td><?php echo esc_html($item->post_status); ?></td>
+                            </tr>
+                        <?php } ?>
+                    </tbody>
+                </table>
             </div>
         <?php
     }
@@ -153,9 +170,5 @@ class SHB_admin_menu {
         <?php
     }
 
-
-    // public function shb_first_ajax() {
-
-    // }
 
 }
