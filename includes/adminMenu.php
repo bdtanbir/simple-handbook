@@ -7,6 +7,8 @@ class SHB_admin_menu {
     {
         add_action( 'admin_menu', [$this, 'shb_admin_menu_page'] );
         add_action( 'admin_init', [$this, 'shb_register_setting_panel'] );
+        // add_action( 'wp_ajax_shb_tag_count', [$this, 'shb_first_ajax'] );
+        // add_action( 'wp_ajax_nopriv_shb_tag_count', [$this, 'shb_first_ajax'] );
     }
 
     public function shb_admin_menu_page() {
@@ -58,12 +60,57 @@ class SHB_admin_menu {
 
 
     public function shb_update_usermeta_callback() {
+        global $wpdb;
+        $results = $wpdb->get_results(
+            "SELECT * FROM {$wpdb->prefix}posts AS P 
+        WHERE P.post_type = 'shb_handbook' and P.post_status = 'publish'"
+        );
+        error_log(print_r($results, 1));
         ?>
             <div class="shb-usermeta-field">
                 <h1><?php esc_html_e('Usermeta', 'simple-handbook'); ?></h1>
                 <p>
                     Date of birth: <strong><?php echo get_user_meta( '1', 'birthday', true ); ?></strong>
                 </p>
+
+                <form id="shb-radioform">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <input 
+                                    type="radio" 
+                                    class="shb-radio-input" 
+                                    name="book" 
+                                    checked="checked" 
+                                    value="<?php esc_attr_e('Sycamore Row', 'simple-handbook'); ?>"> <?php esc_html_e('Sycamore Row', 'simple-handbook'); ?>
+                                </td>
+                                <td>
+                                    <?php esc_html_e('John Grisham', 'simple-handbook'); ?>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input 
+                                    type="radio" 
+                                    class="shb-radio-input" 
+                                    name="book" 
+                                    value="<?php esc_attr_e('Dark Witch', 'simple-handbook'); ?>"> <?php esc_html_e('Dark Witch', 'simple-handbook'); ?>
+                                </td>
+                                <td>
+                                    <?php esc_html_e('Nora Roberts', 'simple-handbook'); ?>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+
+
+                <ul>
+                    <?php foreach($results as $item) { ?>
+                        <li><?php echo esc_html($item->post_title); ?></li>
+                    <?php } ?>
+                </ul>
             </div>
         <?php
     }
@@ -105,5 +152,10 @@ class SHB_admin_menu {
             value="<?php echo isset($simple_text) ? esc_attr($simple_text) : ''; ?>">
         <?php
     }
+
+
+    // public function shb_first_ajax() {
+
+    // }
 
 }

@@ -76,6 +76,10 @@ if (!class_exists('SimpleHandbook')) {
 
         public function loaded_plugin() {
             if (is_admin()) {
+                // Assets
+                require_once SHB_PATH . '/includes/assets.php';
+                $this->container['assets'] = new Simple_Handbook\Assets;
+
                 // Custom Post Types Register
                 require_once SHB_PATH . '/includes/custom-posttypes.php';
 
