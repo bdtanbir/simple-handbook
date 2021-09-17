@@ -63,7 +63,10 @@ class SHB_admin_menu {
             "SELECT * FROM {$wpdb->prefix}posts AS P 
         WHERE P.post_type = 'shb_handbook' and P.post_status = 'publish'"
         );
-        error_log(print_r($results, 1));
+
+        $users = $wpdb->get_results(
+            "SELECT * FROM {$wpdb->prefix}users"
+        );
         ?>
             <div class="shb-usermeta-field">
                 <h1><?php esc_html_e('Usermeta', 'simple-handbook'); ?></h1>
@@ -124,6 +127,38 @@ class SHB_admin_menu {
                                     ?>
                                 </td>
                                 <td><?php echo esc_html($item->post_status); ?></td>
+                            </tr>
+                        <?php } ?>
+                    </tbody>
+                </table>
+                <br>
+                <hr>
+                <br>
+                <h3><?php esc_html_e('Users', 'simple-handbook'); ?></h3>
+                <table class="shb-handbook-users-table">
+                    <thead>
+                        <tr>
+                            <th><?php esc_html_e('ID', 'simple-handbook'); ?></th>
+                            <th><?php esc_html_e('User Login', 'simple-handbook'); ?></th>
+                            <th><?php esc_html_e('User Registered', 'simple-handbook'); ?></th>
+                            <th><?php esc_html_e('User Email', 'simple-handbook'); ?></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach($users as $user) { ?>
+                            <tr>
+                                <td>
+                                    <?php echo esc_html($user->ID); ?>
+                                </td>
+                                <td>
+                                    <?php echo esc_html($user->user_login); ?>
+                                </td>
+                                <td>
+                                    <?php echo esc_html($user->user_registered); ?>
+                                </td>
+                                <td>
+                                    <?php echo esc_html($user->user_email); ?>
+                                </td>
                             </tr>
                         <?php } ?>
                     </tbody>
